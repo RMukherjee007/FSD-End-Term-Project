@@ -45,7 +45,12 @@ function App() {
     setData(null);
 
     try {
-      const response = await axios.get(`http://localhost:5001/api/github/${searchUsername}`);
+      // Use dynamic URL: relative in production (monolith), localhost in dev
+      const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? `http://localhost:5001/api/github/${searchUsername}`
+        : `/api/github/${searchUsername}`;
+        
+      const response = await axios.get(apiUrl);
       setData(response.data);
       setSearchedUser(searchUsername);
       saveRecentSearch(searchUsername);

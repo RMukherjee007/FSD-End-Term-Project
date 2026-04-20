@@ -13,8 +13,17 @@ mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB error:', err));
 
+const path = require('path');
+
 // Apply the routes
 app.use('/api/github', githubRoutes);
+
+// Serve frontend
+app.use(express.static(path.join(__dirname, '../os-tracker-frontend/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../os-tracker-frontend/dist', 'index.html'));
+});
 
 // Use the dynamic port provided by the cloud host, or fallback to 5001 locally
 const PORT = process.env.PORT || 5001;

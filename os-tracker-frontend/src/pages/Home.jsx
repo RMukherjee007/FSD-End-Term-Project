@@ -109,3 +109,5 @@ function Home({ recentSearches }) {
 }
 
 export default Home;
+
+// Ide sync commit

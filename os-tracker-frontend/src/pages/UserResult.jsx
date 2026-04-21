@@ -169,3 +169,5 @@ function UserResult({ saveRecentSearch, toggleFavorite, favorites }) {
 }
 
 export default UserResult;
+
+// Ide sync commit

@@ -1,4 +1,4 @@
 # Global Ignore Rules
-.DS_Store
+node_modules/
 dist/
 .env

@@ -130,7 +130,6 @@ function UserResult({ saveRecentSearch, toggleFavorite, favorites }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [searchUsername, setSearchUsername] = useState('');
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
 
@@ -162,12 +161,6 @@ function UserResult({ saveRecentSearch, toggleFavorite, favorites }) {
     fetchUserData(username);
   }, [username]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (!searchUsername) return;
-    navigate(`/user/${searchUsername}`);
-  };
-
   const handleShare = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
@@ -194,17 +187,6 @@ function UserResult({ saveRecentSearch, toggleFavorite, favorites }) {
         <Link to="/" className="back-link">
           <Icons.ArrowLeft /> Back to Home
         </Link>
-        <form onSubmit={handleSearch} className="search-section user-search">
-          <input
-            type="text"
-            placeholder="Search another user..."
-            value={searchUsername}
-            onChange={(e) => setSearchUsername(e.target.value)}
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? <span className="spinner"></span> : <Icons.Search />}
-          </button>
-        </form>
       </div>
 
       {loading && <div className="loading-state" style={{ textAlign: 'center', marginTop: '4rem' }}><span className="spinner"></span></div>}

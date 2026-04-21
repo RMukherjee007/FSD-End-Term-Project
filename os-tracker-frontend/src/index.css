@@ -11,8 +11,20 @@
   --text-main: var(--color-black);
   --text-inverse: var(--bg-pure);
   --text-green: var(--color-green);
+  --text-primary: var(--color-black);
   
   --border-color: #d1d5db;
+  --nav-bg: rgba(255, 255, 255, 0.6);
+  
+  /* Semantic Card Colors */
+  --card-bg-1: var(--color-black);
+  --card-text-1: var(--bg-pure);
+  --card-bg-2: var(--color-green);
+  --card-text-2: var(--color-black);
+  --card-bg-3: var(--color-grey);
+  --card-text-3: var(--color-black);
+  --card-bg-4: var(--bg-pure);
+  --card-text-4: var(--color-black);
   
   --font-heading: 'Outfit', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -24,7 +36,37 @@
   --radius-full: 9999px;
   
   /* Transitions */
+  --transition-fast: 0.2s ease-in-out;
   --transition-normal: 0.3s ease-in-out;
+}
+
+[data-theme="dark"] {
+  /* Softer Dark Mode Palette */
+  --bg-main: #121212;
+  --bg-pure: #1e1e1e;
+  
+  --color-black: #f3f4f6; /* Soft white for text */
+  --color-green: #4ade80; /* Softer, less neon green */
+  --color-grey: #2d3748;
+  --color-dark-grey: #9ca3af;
+  
+  --text-main: var(--color-black);
+  --text-inverse: var(--bg-main);
+  --text-green: var(--color-green);
+  --text-primary: var(--color-black);
+  
+  --border-color: #374151;
+  --nav-bg: rgba(10, 10, 10, 0.6);
+
+  /* Less contrasty cards for dark mode */
+  --card-bg-1: #2d3748;
+  --card-text-1: #ffffff;
+  --card-bg-2: rgba(74, 222, 128, 0.15); /* Subtle green tint */
+  --card-text-2: #4ade80;
+  --card-bg-3: #2d3748;
+  --card-text-3: #f3f4f6;
+  --card-bg-4: #1e1e1e;
+  --card-text-4: #f3f4f6;
 }
 
 html {

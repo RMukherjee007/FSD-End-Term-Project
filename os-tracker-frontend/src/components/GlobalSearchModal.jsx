@@ -1,3 +1,4 @@
+// GlobalSearchModal Component
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icons from './Icons';

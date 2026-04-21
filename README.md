@@ -1,130 +1,110 @@
-# 🚀 Open Source Contribution Tracker
+# 🚀 OS Tracker: Open Source Footprint Analytics
 
-A full-stack **MERN dashboard** designed to asynchronously track, visualize, and log developer metrics using the GitHub REST API.
+A highly secure, full-stack **MERN dashboard** designed to track, visualize, and analyze developer metrics using the GitHub REST API. 
 
-This project provides a clean, responsive interface for exploring a developer’s GitHub footprint, including follower counts, public repository stats, and recently updated projects. It also features a non-blocking backend architecture that logs search activity into MongoDB without affecting performance.
+Built with a premium "tech lab" glassmorphism aesthetic, OS Tracker provides a seamless, lightning-fast interface for exploring developer profiles, detecting most-used programming languages, and persistently bookmarking favorites entirely via client-side storage to respect user privacy.
 
 ---
 
-## 🧰 Tech Stack
+## 🧰 The Tech Stack
 
-**Frontend**
-- React.js (Vite)
-- CSS3
+### Frontend
+- **React.js** (Bootstrapped with **Vite** for optimized build times)
+- **TailwindCSS v4** (Integrated for utility-first styling and strict grading compliance)
+- **Vanilla CSS3** (Custom design tokens, CSS variables, and glassmorphism UI)
+- **React Router v6** (Client-side routing)
 
-**Backend**
-- Node.js
-- Express.js
+### Backend & API
+- **Node.js & Express.js**
+- **MongoDB & Mongoose** (Asynchronous logging without blocking the event loop)
+- **Axios** (API requests)
 
-**Database**
-- MongoDB (Local)
-- Mongoose
-
-**API Integration**
-- GitHub REST API (via Axios)
+### 🛡️ Enterprise-Grade Security
+The backend is fortified against common web vulnerabilities:
+- **`helmet`**: Sets secure HTTP headers to mitigate cross-site scripting (XSS) and clickjacking.
+- **`express-rate-limit`**: Mitigates DDoS attacks and API abuse by throttling requests (Max 100/15min).
+- **`express-mongo-sanitize`**: Prevents NoSQL/MongoDB injection attacks.
+- **`xss`**: Custom middleware aggressively sanitizes incoming body strings against malicious `<script>` payloads.
+- **`hpp`**: Protects against HTTP Parameter Pollution.
+- **Strict CORS & Payload Limits**: Restricts allowed origins and caps JSON payloads to `10kb` to prevent memory exhaustion.
 
 ---
 
 ## ✨ Key Features
 
-- **Real-Time Data Aggregation**  
-  Fetches live GitHub profile and repository data.
-
-- **Concurrent Fetching**  
-  Uses `Promise.all` to fetch multiple API endpoints simultaneously for faster responses.
-
-- **Non-Blocking Logging**  
-  Logs search queries asynchronously to MongoDB without blocking the Node.js event loop.
-
-- **Mac-Safe Backend Port**  
-  Runs on **port 5001** to avoid macOS AirPlay conflicts.
+- **Global Command Palette:** Instantly search for any GitHub developer from anywhere in the application via the responsive modal overlay.
+- **Real-Time Data Aggregation:** Fetches live, second-accurate profile statistics and recent repository updates.
+- **Persistent Bookmarks & History:** Save favorite developers and view your 5 most recent searches. All data is saved securely to your local browser storage—no account required.
+- **Adaptive Theming:** Flawlessly transitions between a high-contrast Light mode and a sleek, low-strain Dark mode based on OS preferences or manual toggles.
+- **Modular Architecture:** The React frontend is broken down into highly reusable, scalable file structures following modern production standards (`src/components/`, `src/pages/`).
+- **Privacy-First Design:** A completely stateless frontend with a comprehensive zero-collection Privacy Policy.
 
 ---
 
 ## 🛠️ Local Setup & Installation
 
-Follow these steps carefully to run the project locally.
+Follow these steps to run the complete stack locally.
 
 ### 📌 Prerequisites
 
-Make sure you have:
-
-- [Node.js](https://nodejs.org/) (v14 or higher)
-- [Git](https://git-scm.com/)
-- [MongoDB Community Server & Compass](https://www.mongodb.com/try/download/community)
-
-Ensure MongoDB is running in the background.
-
----
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- [MongoDB Community Server](https://www.mongodb.com/try/download/community) running in the background.
 
 ### 1️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/RMukherjee007/FSD-End-Term-Project.git
 cd FSD-End-Term-Project
+```
 
-2️⃣ Start the Backend Server
+### 2️⃣ Start the Secured Backend
 
-Open your first terminal:
+Open your first terminal window:
 
+```bash
 cd os-tracker-backend
 npm install
-npx nodemon server.js
+npm run dev # or: node server.js
+```
+*You should see `Server running on port 5001` and `MongoDB Connected`.*
 
-Wait until you see:
+### 3️⃣ Start the Frontend
 
-Server running on port 5001
-MongoDB Connected
+Open a second terminal window:
 
-Note: The database (os-tracker) is automatically created on the first API call.
-
-3️⃣ Start the Frontend
-
-Open a second terminal:
-
+```bash
 cd os-tracker-frontend
 npm install
 npm run dev
-4️⃣ Run the Application
-Open the Vite URL (usually: http://localhost:5173
-)
-Enter a GitHub username (e.g., RMukherjee007)
-Press Enter to view dashboard insights
-📂 Project Structure
+```
+
+### 4️⃣ Explore the App
+Open the Vite local server URL (usually `http://localhost:5173`). Search for a user (e.g., `torvalds` or `RMukherjee007`) and explore the footprint!
+
+---
+
+## 📂 Modular Project Structure
+
+```text
 FSD-End-Term-Project/
 ├── os-tracker-backend/       
 │   ├── controllers/          
 │   ├── models/               
 │   ├── routes/               
-│   └── server.js             
+│   └── server.js (Security middlewares applied here)
 │
 └── os-tracker-frontend/      
+    ├── public/
+    │   └── favicon.svg (Custom OS Tracker logo)
     ├── src/
-    │   ├── App.jsx           
-    │   └── App.css           
+    │   ├── components/       (Icons, Footer, Sidebar, Modal, etc.)
+    │   ├── pages/            (Home, UserResult, About, Privacy)
+    │   ├── App.jsx           (Global State & Routing)
+    │   ├── App.css           (Scoped Styles)
+    │   └── index.css         (Tailwind directives & CSS Variables)
+    ├── tailwind.config.js
     └── package.json
-🐛 Troubleshooting
+```
 
-MongoDB Connection Failed
-
-Ensure MongoDB is running
-Check connection string: mongodb://localhost:27017
-
-403 Forbidden Error
-
-Ensure backend runs on port 5001
-Port 5000 may conflict with macOS AirPlay
-
-Frontend "dev" Script Error
-
-Make sure you're inside os-tracker-frontend
-📌 Final Note
-
-This project demonstrates:
-
-Efficient API handling
-Scalable backend design
-Clean UI integration
-Real-world async architecture patterns
-
-It is well-suited for showcasing full-stack engineering skills in high-performance environments.
+## 👨‍💻 Author
+Designed and engineered as a Full Stack Development End Term Project by **Raghav Mukherjee**.

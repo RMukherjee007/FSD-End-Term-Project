@@ -43,23 +43,8 @@ const apiLimiter = rateLimit({
 
 app.use(express.json({ limit: '10kb' })); // Limit body size to 10kb to prevent payload too large attacks
 
-// 6. Restrict CORS to authorized domains only
-const allowedOrigins = [
-  'http://localhost:5173', // Vite default local port
-  'http://localhost:5001', // Local backend port
-  'https://os-tracker.onrender.com' // Replace with your actual production frontend URL
-];
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST'],
-  credentials: true
-}));
+// 6. Enable CORS (Allows local development and same-origin production requests)
+app.use(cors());
 
 // 4. Data Sanitization against NoSQL Query Injection
 app.use(mongoSanitize());

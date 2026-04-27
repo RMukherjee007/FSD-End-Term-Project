@@ -1,7 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const githubRoutes = require('./routes/githubRoutes');
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const path = require('path');
 
 const app = express();
 
@@ -14,10 +18,10 @@ mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB error:', err));
 
-const path = require('path');
-
 // Apply the routes
 app.use('/api/github', githubRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 // Serve frontend
 app.use(express.static(path.join(__dirname, '../os-tracker-frontend/dist')));

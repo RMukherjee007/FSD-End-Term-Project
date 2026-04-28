@@ -1,10 +1,6 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
 import './App.css';
-
-// Context
-import { AuthProvider, AuthContext } from './context/AuthContext';
 
 // Components
 import Icons from './components/Icons';
@@ -12,24 +8,20 @@ import GlobalSearchModal from './components/GlobalSearchModal';
 import SidebarMenu from './components/SidebarMenu';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import AnimatedBackground from './components/AnimatedBackground';
 
 // Pages
 import Home from './pages/Home';
 import UserResult from './pages/UserResult';
 import AboutPage from './pages/AboutPage';
 import PrivacyPage from './pages/PrivacyPage';
-import Login from './pages/Login';
-import Register from './pages/Register';
 
-function AppContent() {
+function App() {
   const [recentSearches, setRecentSearches] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const location = useLocation();
-  const { user, setUser, getBaseUrl } = useContext(AuthContext);
 
   useEffect(() => {
     // Load theme preference
@@ -45,20 +37,12 @@ function AppContent() {
         setRecentSearches(valid);
       } catch (e) { }
     }
-  }, []);
 
-  useEffect(() => {
-    if (user && user.favorites) {
-      setFavorites(user.favorites);
-    } else {
-      const savedFavs = localStorage.getItem('favorites');
-      if (savedFavs) {
-        try { setFavorites(JSON.parse(savedFavs)); } catch (e) { }
-      } else {
-        setFavorites([]); // clear when logging out if no local state
-      }
+    const savedFavs = localStorage.getItem('favorites');
+    if (savedFavs) {
+      try { setFavorites(JSON.parse(savedFavs)); } catch (e) { }
     }
-  }, [user]);
+  }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -81,31 +65,18 @@ function AppContent() {
     });
   };
 
-  const toggleFavorite = async (userObj) => {
-    if (user) {
-      const token = localStorage.getItem('token');
-      try {
-        const res = await axios.post(`${getBaseUrl()}/api/user/favorites`, userObj, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setFavorites(res.data);
-        setUser({ ...user, favorites: res.data });
-      } catch (err) {
-        console.error('Error toggling favorite:', err);
+  const toggleFavorite = (userObj) => {
+    setFavorites(prev => {
+      const exists = prev.find(f => f.login === userObj.login);
+      let updated;
+      if (exists) {
+        updated = prev.filter(f => f.login !== userObj.login);
+      } else {
+        updated = [userObj, ...prev];
       }
-    } else {
-      setFavorites(prev => {
-        const exists = prev.find(f => f.login === userObj.login);
-        let updated;
-        if (exists) {
-          updated = prev.filter(f => f.login !== userObj.login);
-        } else {
-          updated = [userObj, ...prev];
-        }
-        localStorage.setItem('favorites', JSON.stringify(updated));
-        return updated;
-      });
-    }
+      localStorage.setItem('favorites', JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const clearHistory = () => {
@@ -115,7 +86,6 @@ function AppContent() {
 
   return (
     <>
-      <AnimatedBackground />
       <ScrollToTop />
       {/* Global Navbar */}
       <nav className="global-navbar">
@@ -157,8 +127,6 @@ function AppContent() {
           <Route path="/" element={<Home recentSearches={recentSearches} />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route
             path="/user/:username"
             element={
@@ -174,14 +142,6 @@ function AppContent() {
 
       <Footer />
     </>
-  );
-}
-
-function App() {
-  return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
   );
 }
 

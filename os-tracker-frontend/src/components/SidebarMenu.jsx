@@ -1,23 +1,14 @@
-import { useNavigate, Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Icons from './Icons';
-import { AuthContext } from '../context/AuthContext';
 
 function SidebarMenu({ isOpen, onClose, recentSearches, favorites, clearHistory }) {
   const navigate = useNavigate();
-  const { user, logout } = useContext(AuthContext);
 
   if (!isOpen) return null;
 
   const handleNavigate = (username) => {
     onClose();
     navigate(`/user/${username}`);
-  };
-
-  const handleLogout = () => {
-    logout();
-    onClose();
-    navigate('/');
   };
 
   return (
@@ -37,12 +28,12 @@ function SidebarMenu({ isOpen, onClose, recentSearches, favorites, clearHistory 
               <p className="drawer-empty">No bookmarked users.</p>
             ) : (
               <ul className="drawer-list">
-                {favorites.map((favUser) => (
-                  <li key={favUser.login} className="drawer-item" onClick={() => handleNavigate(favUser.login)}>
-                    <img src={favUser.avatar} alt={favUser.login} className="drawer-avatar" />
+                {favorites.map((user) => (
+                  <li key={user.login} className="drawer-item" onClick={() => handleNavigate(user.login)}>
+                    <img src={user.avatar} alt={user.login} className="drawer-avatar" />
                     <div className="drawer-user-info">
-                      <span className="drawer-name">{favUser.name}</span>
-                      <span className="drawer-login">@{favUser.login}</span>
+                      <span className="drawer-name">{user.name}</span>
+                      <span className="drawer-login">@{user.login}</span>
                     </div>
                   </li>
                 ))}
@@ -65,12 +56,12 @@ function SidebarMenu({ isOpen, onClose, recentSearches, favorites, clearHistory 
               <p className="drawer-empty">No recent searches.</p>
             ) : (
               <ul className="drawer-list">
-                {recentSearches.map((sUser, idx) => (
-                  <li key={idx} className="drawer-item" onClick={() => handleNavigate(sUser.login)}>
-                    <img src={sUser.avatar} alt={sUser.login} className="drawer-avatar" />
+                {recentSearches.map((user, idx) => (
+                  <li key={idx} className="drawer-item" onClick={() => handleNavigate(user.login)}>
+                    <img src={user.avatar} alt={user.login} className="drawer-avatar" />
                     <div className="drawer-user-info">
-                      <span className="drawer-name">{sUser.name}</span>
-                      <span className="drawer-login">@{sUser.login}</span>
+                      <span className="drawer-name">{user.name}</span>
+                      <span className="drawer-login">@{user.login}</span>
                     </div>
                   </li>
                 ))}
@@ -78,26 +69,11 @@ function SidebarMenu({ isOpen, onClose, recentSearches, favorites, clearHistory 
             )}
           </div>
         </div>
-        
-        {/* Auth Section at bottom */}
-        <div className="drawer-section" style={{ marginTop: 'auto', padding: '1rem', borderTop: '1px solid var(--border)' }}>
-          {user ? (
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontWeight: 'bold' }}>{user.username}</span>
-              <button onClick={handleLogout} className="share-btn" style={{ padding: '0.4rem 0.8rem', fontSize: '0.9rem' }}>
-                Logout
-              </button>
-            </div>
-          ) : (
-            <div style={{ display: 'flex', gap: '0.5rem', flexDirection: 'column' }}>
-              <Link to="/login" onClick={onClose} className="share-btn" style={{ textAlign: 'center', display: 'block', padding: '0.6rem' }}>Login</Link>
-              <Link to="/register" onClick={onClose} className="bookmark-btn" style={{ textAlign: 'center', display: 'block', padding: '0.6rem' }}>Register</Link>
-            </div>
-          )}
-        </div>
       </div>
     </>
   );
 }
 
 export default SidebarMenu;
+
+// Ide sync commit

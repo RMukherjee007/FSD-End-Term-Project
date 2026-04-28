@@ -1,125 +1,133 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap');
 
+/* ─── Design Tokens ────────────────────────────────────────────── */
 :root {
-  /* High-Contrast Light Theme Design Tokens */
-  --bg-main: #f8f9fc;
-  --bg-pure: #ffffff;
-  
-  --color-black: #050505;
-  --color-green: #5cff3a;
-  --color-grey: #e5e7eb;
-  --color-dark-grey: #1f2937;
-  
-  --text-main: var(--color-black);
-  --text-inverse: var(--bg-pure);
-  --text-green: var(--color-green);
-  --text-primary: var(--color-black);
-  
-  --border-color: #d1d5db;
-  --nav-bg: rgba(255, 255, 255, 0.6);
-  
-  /* Semantic Card Colors */
-  --card-bg-1: var(--color-black);
-  --card-text-1: var(--bg-pure);
-  --card-bg-2: var(--color-green);
-  --card-text-2: var(--color-black);
-  --card-bg-3: var(--color-grey);
-  --card-text-3: var(--color-black);
-  --card-bg-4: var(--bg-pure);
-  --card-text-4: var(--color-black);
-  
-  --font-heading: 'Outfit', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  /* Light palette (Color Hunt: bf092f, 132440, 16476a, 3b9797) */
+  --bg-main:       #f8fafc;
+  --bg-pure:       #ffffff;
+  --bg-glass:      rgba(255,255,255,0.75);
 
-  /* Heavy Radii */
-  --radius-xl: 40px;
-  --radius-lg: 30px;
-  --radius-md: 20px;
-  --radius-full: 9999px;
-  
-  /* Transitions */
-  --transition-fast: 0.2s ease-in-out;
-  --transition-normal: 0.3s ease-in-out;
+  --accent:        #bf092f;
+  --accent-glow:   rgba(191,9,47,0.15);
+  --accent-2:      #3b9797;
+  --accent-3:      #16476a;
+
+  --text-main:     #132440;
+  --text-sub:      #475569;
+  --text-inv:      #ffffff;
+
+  --border:        rgba(19,36,64,0.1);
+  --border-hover:  rgba(19,36,64,0.25);
+
+  --nav-bg:        rgba(248,250,252,0.85);
+  --card-shadow:   0 12px 40px rgba(19,36,64,0.08);
+  --glow-shadow:   0 0 60px rgba(191,9,47,0.12);
+
+  --font-heading:  'Outfit', system-ui, sans-serif;
+  --font-body:     'Inter', system-ui, sans-serif;
+
+  --radius-xs:     8px;
+  --radius-sm:     14px;
+  --radius-md:     20px;
+  --radius-lg:     28px;
+  --radius-xl:     40px;
+  --radius-full:   9999px;
+
+  --ease-spring:   cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out:      cubic-bezier(0, 0, 0.2, 1);
+  --t-fast:        0.18s;
+  --t-normal:      0.32s;
+  --t-slow:        0.5s;
 }
 
 [data-theme="dark"] {
-  /* Softer Dark Mode Palette */
-  --bg-main: #121212;
-  --bg-pure: #1e1e1e;
-  
-  --color-black: #f3f4f6; /* Soft white for text */
-  --color-green: #4ade80; /* Softer, less neon green */
-  --color-grey: #2d3748;
-  --color-dark-grey: #9ca3af;
-  
-  --text-main: var(--color-black);
-  --text-inverse: var(--bg-main);
-  --text-green: var(--color-green);
-  --text-primary: var(--color-black);
-  
-  --border-color: #374151;
-  --nav-bg: rgba(10, 10, 10, 0.6);
+  --bg-main:       #000000;
+  --bg-pure:       #0a0a0a;
+  --bg-glass:      rgba(0,0,0,0.65);
 
-  /* Less contrasty cards for dark mode */
-  --card-bg-1: #2d3748;
-  --card-text-1: #ffffff;
-  --card-bg-2: rgba(74, 222, 128, 0.15); /* Subtle green tint */
-  --card-text-2: #4ade80;
-  --card-bg-3: #2d3748;
-  --card-text-3: #f3f4f6;
-  --card-bg-4: #1e1e1e;
-  --card-text-4: #f3f4f6;
+  --accent:        #39FF14;
+  --accent-glow:   rgba(57,255,20,0.25);
+  --accent-2:      #06b6d4;
+  --accent-3:      #f59e0b;
+
+  --text-main:     #ffffff;
+  --text-sub:      #a1a1aa;
+  --text-inv:      #000000;
+
+  --border:        rgba(57,255,20,0.15);
+  --border-hover:  rgba(57,255,20,0.35);
+
+  --nav-bg:        rgba(0,0,0,0.75);
+  --card-shadow:   0 8px 32px rgba(0,0,0,0.5);
+  --glow-shadow:   0 0 60px rgba(57,255,20,0.15);
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* ─── Reset ────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
   font-family: var(--font-body);
   background-color: var(--bg-main);
   color: var(--text-main);
-  line-height: 1.6;
+  line-height: 1.65;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,h2,h3,h4,h5,h6 {
   font-family: var(--font-heading);
-  font-weight: 500;
-  letter-spacing: -0.05em; /* Tight tracking for headings */
-  color: var(--color-black);
-  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--text-main);
+  line-height: 1.05;
 }
 
-a {
-  color: var(--color-black);
-  text-decoration: none;
-  transition: opacity var(--transition-normal);
+a { color: var(--accent); text-decoration: none; transition: opacity var(--t-fast) var(--ease-out); }
+a:hover { opacity: 0.78; }
+
+img { display: block; max-width: 100%; }
+
+/* ─── Keyframes ─────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-a:hover {
-  opacity: 0.7;
-}
-
-/* Base Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translate3d(0, 20px, 0); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 @keyframes spin {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
 }
 
-.fade-in {
-  animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+@keyframes pulse-ring {
+  0%   { transform: scale(0.95); box-shadow: 0 0 0 0 var(--accent-glow); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 16px rgba(0,0,0,0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0,0,0,0); }
 }
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes gradientShift {
+  0%,100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* ─── Utility ───────────────────────────────────────────────────── */
+.fade-in  { animation: fadeIn  0.5s var(--ease-spring) both; }
+.fade-up  { animation: fadeUp  0.6s var(--ease-spring) both; }

@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+:root {
+  /* High-Contrast Light Theme Design Tokens */
+  --bg-main: #f8f9fc;
+  --bg-pure: #ffffff;
+  
+  --color-black: #050505;
+  --color-green: #5cff3a;
+  --color-grey: #e5e7eb;
+  --color-dark-grey: #1f2937;
+  
+  --text-main: var(--color-black);
+  --text-inverse: var(--bg-pure);
+  --text-green: var(--color-green);
+  --text-primary: var(--color-black);
+  
+  --border-color: #d1d5db;
+  --nav-bg: rgba(255, 255, 255, 0.6);
+  
+  /* Semantic Card Colors */
+  --card-bg-1: var(--color-black);
+  --card-text-1: var(--bg-pure);
+  --card-bg-2: var(--color-green);
+  --card-text-2: var(--color-black);
+  --card-bg-3: var(--color-grey);
+  --card-text-3: var(--color-black);
+  --card-bg-4: var(--bg-pure);
+  --card-text-4: var(--color-black);
+  
+  --font-heading: 'Outfit', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Heavy Radii */
+  --radius-xl: 40px;
+  --radius-lg: 30px;
+  --radius-md: 20px;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+}
+
+[data-theme="dark"] {
+  /* Softer Dark Mode Palette */
+  --bg-main: #121212;
+  --bg-pure: #1e1e1e;
+  
+  --color-black: #f3f4f6; /* Soft white for text */
+  --color-green: #4ade80; /* Softer, less neon green */
+  --color-grey: #2d3748;
+  --color-dark-grey: #9ca3af;
+  
+  --text-main: var(--color-black);
+  --text-inverse: var(--bg-main);
+  --text-green: var(--color-green);
+  --text-primary: var(--color-black);
+  
+  --border-color: #374151;
+  --nav-bg: rgba(10, 10, 10, 0.6);
+
+  /* Less contrasty cards for dark mode */
+  --card-bg-1: #2d3748;
+  --card-text-1: #ffffff;
+  --card-bg-2: rgba(74, 222, 128, 0.15); /* Subtle green tint */
+  --card-text-2: #4ade80;
+  --card-bg-3: #2d3748;
+  --card-text-3: #f3f4f6;
+  --card-bg-4: #1e1e1e;
+  --card-text-4: #f3f4f6;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.05em; /* Tight tracking for headings */
+  color: var(--color-black);
+  line-height: 1.1;
+}
+
+a {
+  color: var(--color-black);
+  text-decoration: none;
+  transition: opacity var(--transition-normal);
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* Base Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate3d(0, 20px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}

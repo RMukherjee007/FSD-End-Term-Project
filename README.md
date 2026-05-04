@@ -17,16 +17,14 @@ Built with a premium "tech lab" glassmorphism aesthetic, OS Tracker provides a s
 ### Backend & API
 - **Node.js & Express.js**
 - **MongoDB & Mongoose** (Asynchronous logging without blocking the event loop)
+- **Redis** (High-performance caching for GitHub API responses)
 - **Axios** (API requests)
 
-### 🛡️ Enterprise-Grade Security
-The backend is fortified against common web vulnerabilities:
-- **`helmet`**: Sets secure HTTP headers to mitigate cross-site scripting (XSS) and clickjacking.
+### 🛡️ Core Security
+The backend is protected with standard production-ready middlewares:
 - **`express-rate-limit`**: Mitigates DDoS attacks and API abuse by throttling requests (Max 100/15min).
-- **`express-mongo-sanitize`**: Prevents NoSQL/MongoDB injection attacks.
-- **`xss`**: Custom middleware aggressively sanitizes incoming body strings against malicious `<script>` payloads.
-- **`hpp`**: Protects against HTTP Parameter Pollution.
-- **Strict CORS & Payload Limits**: Restricts allowed origins and caps JSON payloads to `10kb` to prevent memory exhaustion.
+- **CORS Configuration**: Restricts API access to authorized origins.
+- **Asynchronous Error Handling**: Robust try-catch blocks in controllers prevent server crashes.
 
 ---
 
@@ -48,7 +46,8 @@ Follow these steps to run the complete stack locally.
 ### 📌 Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18+ recommended)
-- [MongoDB Community Server](https://www.mongodb.com/try/download/community) running in the background.
+- [MongoDB](https://www.mongodb.com/) running locally or in the cloud.
+- [Redis](https://redis.io/) (v6.0+) for caching.
 
 ### 1️⃣ Clone the Repository
 
@@ -78,8 +77,17 @@ npm install
 npm run dev
 ```
 
-### 4️⃣ Explore the App
-Open the Vite local server URL (usually `http://localhost:5173`). Search for a user (e.g., `torvalds` or `RMukherjee007`) and explore the footprint!
+### 4️⃣ Docker Deployment (Optional)
+
+Alternatively, run the entire stack using the included Dockerfile:
+
+```bash
+docker build -t os-tracker .
+docker run -p 5001:5001 -e MONGO_URI=your_mongo_url -e REDIS_URL=your_redis_url os-tracker
+```
+
+### 5️⃣ Explore the App
+Open the Vite local server URL (usually `http://localhost:5173`) or the production port `5001`. Search for a user (e.g., `torvalds` or `RMukherjee007`) and explore the footprint!
 
 ---
 

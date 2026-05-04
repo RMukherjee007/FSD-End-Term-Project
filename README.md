@@ -115,4 +115,4 @@ FSD-End-Term-Project/
 ```
 
 ## 👨‍💻 Author
-Designed and engineered as a Full Stack Development End Term Project by **Raghav Mukherjee**.
+Designed and engineered as a Full Stack Development Project by **Raghav Mukherjee**.
